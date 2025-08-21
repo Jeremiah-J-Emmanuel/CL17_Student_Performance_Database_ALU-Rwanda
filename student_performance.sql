@@ -94,3 +94,13 @@ FROM students s
 JOIN linux_grades lg ON s.student_id = lg.student_id
 WHERE CAST(lg.grade_obtained AS UNSIGNED) < 50
 ORDER BY CAST(lg.grade_obtained AS UNSIGNED) ASC;
+SELECT s.student_id, s.student_name
+FROM students s
+WHERE (
+    s.student_id IN (SELECT student_id FROM linux_grades)
+    AND s.student_id NOT IN (SELECT student_id FROM python_grades)
+)
+OR (
+    s.student_id IN (SELECT student_id FROM python_grades)
+    AND s.student_id NOT IN (SELECT student_id FROM linux_grades)
+);
