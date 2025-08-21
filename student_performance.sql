@@ -128,4 +128,26 @@ OR (
 );
 
 --Number 6- David Achibiri
+SELECT s.student_id, s.student_name, s.intake_year,
+       ROUND(
+         (COALESCE(linux_avg, 0) + COALESCE(python_avg, 0)) /
+         CASE 
+             WHEN linux_avg IS NOT NULL AND python_avg IS NOT NULL THEN 2
+             ELSE 1
+         END, 3
+       ) AS overall_average
+FROM students s
+LEFT JOIN (
+    SELECT student_id, AVG(CAST(grade_obtained AS UNSIGNED)) AS linux_avg
+    FROM linux_grades
+    GROUP BY student_id
+) lg ON s.student_id = lg.student_id
+LEFT JOIN (
+    SELECT student_id, AVG(CAST(grade_obtained AS UNSIGNED)) AS python_avg
+    FROM python_grades
+    GROUP BY student_id
+) pg ON s.student_id = pg.student_id
+WHERE lg.student_id IS NOT NULL OR pg.student_id IS NOT NULL
+ORDER BY overall_average DESC
+LIMIT 1;
 
