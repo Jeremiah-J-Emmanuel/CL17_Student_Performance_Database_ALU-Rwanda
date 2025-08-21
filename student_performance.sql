@@ -102,6 +102,11 @@ ORDER BY CAST(lg.grade_obtained AS UNSIGNED) ASC;
 
 --Number 4
 -- This is for Keira
+SELECT s.student_id, s.student_name
+FROM students s
+JOIN linux_grades lg ON s.student_id = lg.student_id
+JOIN python_grades pg ON s.student_id = pg.student_id;
+
 
 --Number 5
 -- This is for Maellene
@@ -118,3 +123,4 @@ OR (
 
 --Number 6
 --This is for David
+
