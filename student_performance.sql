@@ -145,3 +145,4 @@ LEFT JOIN (
 WHERE lg.student_id IS NOT NULL OR pg.student_id IS NOT NULL
 ORDER BY overall_average DESC
 LIMIT 1;
+
