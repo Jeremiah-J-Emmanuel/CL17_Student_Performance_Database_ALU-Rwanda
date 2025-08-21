@@ -1,3 +1,4 @@
+-- Number 1- Jeremiah
 CREATE TABLE students(  
     student_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     -- The above column is the primary key
@@ -90,25 +91,31 @@ INSERT INTO python_grades (course_id, course_name, student_id, grade_obtained) V
 (319, 'Python Programming', 1019, 64),
 (320, 'Python Programming', 1025, 88);
 
--- Number 2
+
+-- Number 2- Dedine
 SELECT s.student_id, s.student_name, s.intake_year, lg.grade_obtained as linux_grade
 FROM students s
 JOIN linux_grades lg ON s.student_id = lg.student_id
 WHERE CAST(lg.grade_obtained AS UNSIGNED) < 50
 ORDER BY CAST(lg.grade_obtained AS UNSIGNED) ASC;
 
+
 --Number 3
 --This is for Ridaa
 
---Number 4
+--Number 4- Keira
 SELECT s.student_id, s.student_name
 FROM students s
 JOIN linux_grades lg ON s.student_id = lg.student_id
 JOIN python_grades pg ON s.student_id = pg.student_id;
 
 
---Number 5
--- This is for Maellene
+--Number 5- Maellene
+
+
+
+
+--Ridaa will move her code.
 SELECT s.student_id, s.student_name
 FROM students s
 WHERE (
@@ -120,6 +127,5 @@ OR (
     AND s.student_id NOT IN (SELECT student_id FROM linux_grades)
 );
 
---Number 6
---This is for David
+--Number 6- David Achibiri
 
