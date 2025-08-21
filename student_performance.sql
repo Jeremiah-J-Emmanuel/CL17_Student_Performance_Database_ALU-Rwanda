@@ -98,27 +98,12 @@ WHERE CAST(lg.grade_obtained AS UNSIGNED) < 50
 ORDER BY CAST(lg.grade_obtained AS UNSIGNED) ASC;
 
 --Number 3
-
--- Students that took only Linux
-SELECT s.student_id, s.student_name, lg.course_name, lg.grade_obtained
-FROM students s
-JOIN linux_grades lg ON s.student_id = lg.student_id
-WHERE s.student_id NOT IN (
-    SELECT student_id FROM python_grades
-);
-
--- Students that took only Python
-SELECT s.student_id, s.student_name, pg.course_name, pg.grade_obtained
-FROM students s
-JOIN python_grades pg ON s.student_id = pg.student_id
-WHERE s.student_id NOT IN (
-    SELECT student_id FROM linux_grades
-);
+--This is for Ridaa
 
 --Number 4
 -- This is for Keira
 
---Number 5
+--Number 5, 
 SELECT s.student_id, s.student_name
 FROM students s
 WHERE (
