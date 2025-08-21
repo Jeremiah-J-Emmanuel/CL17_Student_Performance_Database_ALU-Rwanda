@@ -119,3 +119,13 @@ WHERE s.student_id NOT IN (
 -- This is for Keira
 
 --Number 5
+SELECT s.student_id, s.student_name
+FROM students s
+WHERE (
+    s.student_id IN (SELECT student_id FROM linux_grades)
+    AND s.student_id NOT IN (SELECT student_id FROM python_grades)
+)
+OR (
+    s.student_id IN (SELECT student_id FROM python_grades)
+    AND s.student_id NOT IN (SELECT student_id FROM linux_grades)
+);
