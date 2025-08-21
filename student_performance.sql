@@ -100,8 +100,13 @@ WHERE CAST(lg.grade_obtained AS UNSIGNED) < 50
 ORDER BY CAST(lg.grade_obtained AS UNSIGNED) ASC;
 
 
---Number 3
---This is for Ridaa
+--Number 3- Ridaa Isaro
+SELECT 'Linux and IT Tools' AS course_name, AVG(CAST(grade_obtained AS UNSIGNED)) AS avg_grade
+FROM linux_grades
+UNION ALL
+SELECT 'Python Programming' AS course_name, AVG(CAST(grade_obtained AS UNSIGNED)) AS avg_grade
+FROM python_grades;
+
 
 --Number 4- Keira
 SELECT s.student_id, s.student_name
@@ -111,21 +116,32 @@ JOIN python_grades pg ON s.student_id = pg.student_id;
 
 
 --Number 5- Maellene
-
-
-
-
---Ridaa will move her code.
-SELECT s.student_id, s.student_name
-FROM students s
-WHERE (
-    s.student_id IN (SELECT student_id FROM linux_grades)
-    AND s.student_id NOT IN (SELECT student_id FROM python_grades)
-)
-OR (
-    s.student_id IN (SELECT student_id FROM python_grades)
-    AND s.student_id NOT IN (SELECT student_id FROM linux_grades)
-);
+SELECT 'Linux and IT Tools' AS course_name, AVG(CAST(grade_obtained AS UNSIGNED)) AS avg_grade
+FROM linux_grades
+UNION ALL
+SELECT 'Python Programming' AS course_name, AVG(CAST(grade_obtained AS UNSIGNED)) AS avg_grade
+FROM python_grades;
 
 --Number 6- David Achibiri
-
+SELECT s.student_id, s.student_name, s.intake_year,
+       ROUND(
+         (COALESCE(linux_avg, 0) + COALESCE(python_avg, 0)) /
+         CASE 
+             WHEN linux_avg IS NOT NULL AND python_avg IS NOT NULL THEN 2
+             ELSE 1
+         END, 3
+       ) AS overall_average
+FROM students s
+LEFT JOIN (
+    SELECT student_id, AVG(CAST(grade_obtained AS UNSIGNED)) AS linux_avg
+    FROM linux_grades
+    GROUP BY student_id
+) lg ON s.student_id = lg.student_id
+LEFT JOIN (
+    SELECT student_id, AVG(CAST(grade_obtained AS UNSIGNED)) AS python_avg
+    FROM python_grades
+    GROUP BY student_id
+) pg ON s.student_id = pg.student_id
+WHERE lg.student_id IS NOT NULL OR pg.student_id IS NOT NULL
+ORDER BY overall_average DESC
+LIMIT 1;
