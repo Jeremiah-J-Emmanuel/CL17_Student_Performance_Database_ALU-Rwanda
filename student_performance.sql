@@ -89,3 +89,8 @@ INSERT INTO python_grades (course_id, course_name, student_id, grade_obtained) V
 (318, 'Python Programming', 1013, 38),
 (319, 'Python Programming', 1019, 64),
 (320, 'Python Programming', 1025, 88);
+SELECT s.student_id, s.student_name, s.intake_year, lg.grade_obtained as linux_grade
+FROM students s
+JOIN linux_grades lg ON s.student_id = lg.student_id
+WHERE CAST(lg.grade_obtained AS UNSIGNED) < 50
+ORDER BY CAST(lg.grade_obtained AS UNSIGNED) ASC;
