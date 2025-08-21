@@ -103,7 +103,8 @@ ORDER BY CAST(lg.grade_obtained AS UNSIGNED) ASC;
 --Number 4
 -- This is for Keira
 
---Number 5, 
+--Number 5
+-- This is for Maellene
 SELECT s.student_id, s.student_name
 FROM students s
 WHERE (
@@ -114,3 +115,6 @@ OR (
     s.student_id IN (SELECT student_id FROM python_grades)
     AND s.student_id NOT IN (SELECT student_id FROM linux_grades)
 );
+
+--Number 6
+--This is for David
