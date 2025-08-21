@@ -101,7 +101,6 @@ ORDER BY CAST(lg.grade_obtained AS UNSIGNED) ASC;
 --This is for Ridaa
 
 --Number 4
--- This is for Keira
 SELECT s.student_id, s.student_name
 FROM students s
 JOIN linux_grades lg ON s.student_id = lg.student_id
